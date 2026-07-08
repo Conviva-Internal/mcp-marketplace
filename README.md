@@ -51,5 +51,5 @@ itself grant access to data. You must be an authorized Conviva user.
 
 ## Version
 
-`0.4.1` — see the release tags for history. Each published version
+`0.5.0` — see the release tags for history. Each published version
 corresponds to the identically-tagged commit in Conviva's internal repository.
