@@ -33,6 +33,13 @@ paste.
 Claude Code honors the plugin's bundled MCP server, so a single install gets you
 both the tools and the skills.
 
+> [!IMPORTANT]
+> **Requires Claude Code v2.1.143 or newer.** Older versions can't parse the
+> marketplace and fail `/plugin marketplace add` with
+> `Invalid schema … Unrecognized key: "displayName"`. Check your version with
+> `claude --version` and update with `claude update` (or
+> `npm i -g @anthropic-ai/claude-code@latest`), then retry.
+
 1. Add the marketplace from the GitHub repo:
 
    ```
@@ -193,6 +200,9 @@ Ask Claude to list the available tools, or run a simple Context Center query.
 
 - **401 / auth loop** — the OAuth flow didn't complete; retry the Okta login
   (manual config: clear `~/.mcp-auth/` first).
+- **`/plugin marketplace add` fails with `Unrecognized key: "displayName"`** —
+  your Claude Code is older than **v2.1.143**. Update with `claude update` (or
+  `npm i -g @anthropic-ai/claude-code@latest`) and retry.
 - **Tools missing in Claude Code** — run `/plugin`, confirm `conviva-dpi-mcp` is
   enabled, and start a new session so the MCP server boots.
 - **Tools missing in Desktop** — the plugin alone doesn't add tools; complete
@@ -205,6 +215,20 @@ Ask Claude to list the available tools, or run a simple Context Center query.
   → "MCP Logs"** and retry the OAuth login.
 - **Skills missing** — confirm the plugin is installed/enabled and reload the
   conversation. (Skills are Claude-plugin-only; Cursor doesn't load them.)
+
+## Local development: Redis for nexa-analyze
+
+The async `nexa-analyze` / `nexa-analyze-result` tools use a Redis-backed job
+store. Before using them locally, start the bundled Redis via Docker Compose:
+
+```bash
+docker compose up -d redis
+```
+
+The config default (`config/default.json`) already points at
+`redis://localhost:6379`, so no further setup is needed. Without Redis running,
+those two tools return a `503` — everything else in the server works fine.
+`npm test` needs no Redis (it's mocked in unit tests).
 
 ## References
 
