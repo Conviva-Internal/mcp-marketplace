@@ -1,3 +1,31 @@
+> [!IMPORTANT]
+> # ⚠️ This marketplace has moved — please migrate
+>
+> This repo is a **deprecated mirror** and will be **sunset**. The canonical
+> marketplace is now:
+>
+> ### 👉 https://github.com/Conviva/mcp-marketplace
+>
+> Updates are still mirrored here **for now**, but this mirror will stop
+> receiving new releases once it is sunset. Migrate now to keep getting the
+> latest plugin and skills.
+>
+> **Claude Code**
+> ```
+> /plugin marketplace remove Conviva-Internal/mcp-marketplace
+> /plugin marketplace add Conviva/mcp-marketplace
+> /plugin install conviva-dpi-mcp@conviva
+> ```
+>
+> **Claude Desktop** — open **Customize → Plugins**, remove this marketplace,
+> then **Add marketplace → Add from a repository** with
+> `https://github.com/Conviva/mcp-marketplace` and reinstall **Conviva DPI MCP**.
+>
+> Your hosted MCP connection keeps working throughout — only the plugin/skills
+> source is moving.
+
+---
+
 # Conviva DPI MCP
 
 Companion Claude plugin for **Conviva DPI MCP**. It wires the hosted Conviva DPI
@@ -10,12 +38,20 @@ MCP endpoint into Claude Code and installs the companion skills
 
 ## Install
 
-**Claude Code** — one step; the plugin wires the MCP server **and** the skills:
+**Claude Code** — one step; the plugin wires the MCP server **and** the skills.
+Run each command on its own (the copy button copies one block at a time):
 
-```
-/plugin marketplace add https://github.com/Conviva-Internal/mcp-marketplace
-/plugin install conviva-dpi-mcp@conviva
-```
+1. Add the marketplace:
+
+   ```
+   /plugin marketplace add Conviva/mcp-marketplace
+   ```
+
+2. Install the plugin:
+
+   ```
+   /plugin install conviva-dpi-mcp@conviva
+   ```
 
 **Claude Desktop** — install the plugin (above) for the skills, then add the MCP
 server as a custom connector (Settings → Connectors) pointed at the endpoint below.
@@ -51,5 +87,5 @@ itself grant access to data. You must be an authorized Conviva user.
 
 ## Version
 
-`0.6.1` — see the release tags for history. Each published version
+`1.0.1` — see the release tags for history. Each published version
 corresponds to the identically-tagged commit in Conviva's internal repository.

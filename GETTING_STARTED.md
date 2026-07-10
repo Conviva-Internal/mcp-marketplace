@@ -1,3 +1,31 @@
+> [!IMPORTANT]
+> # ⚠️ This marketplace has moved — please migrate
+>
+> This repo is a **deprecated mirror** and will be **sunset**. The canonical
+> marketplace is now:
+>
+> ### 👉 https://github.com/Conviva/mcp-marketplace
+>
+> Updates are still mirrored here **for now**, but this mirror will stop
+> receiving new releases once it is sunset. Migrate now to keep getting the
+> latest plugin and skills.
+>
+> **Claude Code**
+> ```
+> /plugin marketplace remove Conviva-Internal/mcp-marketplace
+> /plugin marketplace add Conviva/mcp-marketplace
+> /plugin install conviva-dpi-mcp@conviva
+> ```
+>
+> **Claude Desktop** — open **Customize → Plugins**, remove this marketplace,
+> then **Add marketplace → Add from a repository** with
+> `https://github.com/Conviva/mcp-marketplace` and reinstall **Conviva DPI MCP**.
+>
+> Your hosted MCP connection keeps working throughout — only the plugin/skills
+> source is moving.
+
+---
+
 # Getting started
 
 Connect to the hosted **Conviva DPI MCP** server. The steps depend on
@@ -43,7 +71,7 @@ both the tools and the skills.
 1. Add the marketplace from the GitHub repo:
 
    ```
-   /plugin marketplace add Conviva-Internal/mcp-marketplace
+   /plugin marketplace add Conviva/mcp-marketplace
    ```
 
 2. Install the plugin:
@@ -53,6 +81,17 @@ both the tools and the skills.
    ```
 
 3. On first tool use, complete the **Okta login** in your browser.
+
+> [!NOTE]
+> **If the browser login lands on a `localhost` page and doesn't finish**
+> Claude Code defaults the OAuth callback host to `localhost`
+> (`http://localhost:<port>/callback`), so on a remote/SSH or container session
+> the browser can't reach it and the login appears to stall. **Workaround:** copy
+> the full `localhost` callback URL from the browser and paste it back into Claude
+> Code at the prompt — it converts the URL into a short user code you can approve
+> (including out-of-band, e.g. relayed from another machine). This is an upstream
+> Claude Code default (an open feature request tracks making the callback host
+> configurable), not a Conviva-side setting.
 
 That's it — the `conviva` MCP server starts automatically (tools appear
 as `mcp__conviva__…`) and the Context Center skills
@@ -84,7 +123,7 @@ attach the MCP server yourself.
 3. Enter the repo URL:
 
    ```
-   https://github.com/Conviva-Internal/mcp-marketplace
+   https://github.com/Conviva/mcp-marketplace
    ```
 
 4. From the `conviva` marketplace, install **Conviva DPI MCP**
@@ -200,6 +239,12 @@ Ask Claude to list the available tools, or run a simple Context Center query.
 
 - **401 / auth loop** — the OAuth flow didn't complete; retry the Okta login
   (manual config: clear `~/.mcp-auth/` first).
+- **Claude Code login stalls on a `localhost` callback page** — Claude Code
+  defaults the OAuth callback to `localhost`, which a remote/SSH or container
+  session can't reach. Copy the `localhost` callback URL from the browser and
+  paste it back into Claude Code to exchange it for a short approval code
+  (upstream default; an open Claude Code feature request tracks making it
+  configurable).
 - **`/plugin marketplace add` fails with `Unrecognized key: "displayName"`** —
   your Claude Code is older than **v2.1.143**. Update with `claude update` (or
   `npm i -g @anthropic-ai/claude-code@latest`) and retry.
